@@ -24,7 +24,7 @@
 
 ``` rlwrap poly ``` -> esegue poly, mantiene la memoria dei comandi all'interno di poly
   
-``` use "foo"; ``` -> esegue il file mentre dentro l'ambiente
+``` poly --use "foo"; ``` -> esegue il file e entra dentro l'ambiente
   
 ``` poly < foo ``` -> esegue il file poly
 

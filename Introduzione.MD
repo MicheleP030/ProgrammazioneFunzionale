@@ -137,3 +137,73 @@ non hanno side effect
 
 map <funzione> [...] -> usa la funzione per ogni valore della lista 
 
+### Scope di funzione
+
+#### Scope statico 
+l'environment del blocco A comprende quello del blocco B (A è NESTED in B) se B ha al suo interno A
+```
+x = 10  
+  
+def f():  
+    print(x)  
+  
+def g():  
+    x = 20  
+    f()  
+
+g()
+```
+printerà 10
+#### Scope dinamico
+l'environment del blocco A comprende quello del blocco B se B chiama A al suo interno
+```
+x = 10
+
+function f() {
+    print(x)
+}
+
+function g() {
+    x = 20
+    f()
+}
+
+g()
+```
+
+printerà 20
+
+### Tipi di Parametri Formali
+i parametri sono di tipo input, output o input/output
+#### Per valore - input
+assegno r-value al parametro formale, diventando una variabile locale che viene persa alla fine
+#### A costante - input
+non si può cambiare valore al parametro,  
+decide il compilatore se passarlo come l-value o r-value(a seconda di ottimizzazione)
+#### Per risultato - output
+assegno il valore finale ad una variabile altrimenti vuota al posto del return
+```
+foo(result int x) {
+   x = 8;
+}
+y=1;
+foo(y);
+```
+printerà 8, in foo non posso sapere quanto vale y
+#### Per valore risultato -input/output
+copia la variabile in ingresso ed in uscita, 
+diverso da riferimento perchè le modifiche avvengono solo alla fine
+#### Per nome
+ogni volta che serve il parametro nella funzione valuta l'espressione passata,
+invece di farlo solo all'inizio. 
+```
+procedure f(i, A)
+i = i*2
+i = i/2
+A[i] = 10
+A[i] = 20
+
+f(++i, A[i])
+```
+
+visto che accedo due volte a i allora i crescerà di 2 invece che 1 

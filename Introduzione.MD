@@ -207,3 +207,85 @@ f(++i, A[i])
 ```
 
 visto che accedo due volte a i allora i crescerà di 2 invece che 1 
+
+### Mutua Ricorsione
+se voglio fare mutua ricorsione tra due funzioni, sono obbligato a dichiararne una prima e una dopo
+per farle vedere a vicenda, posso:
+```
+fun x (y)
+...
+
+and z (w)
+...
+```
+
+### Funzioni con pattern
+simili agli switch, le alternative devono essere esaustive, anche se ML in caso darebbe solo un warning
+da errore solo se provo ad eseguirlo con i parametri sbagliati
+```
+fun x (0,0) = 0
+   | x (n,0) = n
+   | x (n,m) = n*m;
+
+```
+o con fn
+```
+val n = fn 1 => "ciao"
+   | 2 => "nig"
+   | _ => "altro"
+
+```
+o con case (con case si può matchare un espressione)
+```
+val n = fn n => case n+1 of
+   | 1 => "ciao"
+   | 2 => "nig"
+   | x => str(chr(x))
+   
+```
+
+#### As
+posso rinominare (o mostrare come è costruito) qualcosa tramite as nel pattern matching
+esempio fare il merge di due liste ordinate, non serve scrivere hd(M) tante volte 
+```
+fun merge(nil,M) = M
+   | merge(L,nil) = L
+   | merge(L as x::xs, M as y::ys) =
+      if x<y then x::merge(xs,M) else y::merge(L,ys);
+```
+#### Variabili Anonime
+quando voglio fare un match al pattern ma non mi serve usare la variabile (_)
+```
+fun x (_,0) = 0
+   | x (n,0) = n
+   | x (n,m) = n*m;
+
+```
+
+#### Variabili Locali
+si possono definire variabili all'interno delle funzioni (si potrebbero anche usare gli stessi nomi)
+```
+fun centesimaPotenza (y)
+   let
+      val quarta = y*y*y*y
+      val ventesima = quarta*quarta*quarta*quarta
+   in
+      ventesima*ventesima*ventesima*ventesima*ventesima
+
+```
+
+#### Possibili pattern
+1. costanti
+2. espressioni con ::
+3. tuple
+esempio con zs lista di triple
+```
+fun sumpair (nil) = 0
+   | (x,y,z)::zs = x+y+z+sumpairs(zs);
+
+```
+
+NON possono esserci:
+1. operazioni aritmetiche
+2. concatenazioni di liste (non so il perchè)
+3. numeri reali (non so il perchè)

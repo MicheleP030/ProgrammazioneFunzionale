@@ -35,12 +35,7 @@ fun startedList() =
 startedList();
 
 exception shortList of int;
-
-fun returnThird(x::y::z::w) = print(Int.toString(z))
-    | returnThird(_) = raise shortList 3; (*lancio l eccezione con le info sulla lunghezza*)
-
-(*visto che returnThird printa, devo printare anche nel handle (il valore in caso di errore deve essere lo stesso di quello senza errore)*)
-val x = returnThird([1]) handle shortList n => print(Int.toString(n)); (*gestisco l'eccezione per qualsiasi n*)
+dAndSualsiasi n*)
 
 exception negativo of int
 
@@ -55,7 +50,28 @@ print(Int.toString(y));
 (*exception errore of unit*int => raise errore (print("ciao"),0)*)
 
 fun tabulate (a,k,n,i,F) = 
-    if(i=n)
-        (print("finitos"), print(""))
-    else 
-        (print(Real.toString(a)^" "^Real.toString(F(x))); tabulate(a+k,k,n,i+1,F));
+    if(i=n) thendAndS);
+
+exception EmptyList;
+
+fun reduce (F,nil) = raise EmptyList
+| reduce (F,[a]) = a
+| reduce (F,x::xs) = F(x, reduce(F,xs));
+
+reduce((fn(x,y) => if x > y then x else y),[1.1,2.2,3.3,4.4]);
+
+fun filter (P,nil) = nil
+| filter (P,x::xs) =
+    if P(x) then x::filter(P,xs)
+        else filter (P,xs);
+
+filter((fn(x) => x > 0),[1,2,~2,~6,7]);
+
+fun readAndSum infile =
+    if TextIO.endOfStream infile then
+        0
+    else
+        case TextIO.inputLine infile of
+        NONE => 0
+        | SOME line => (case Int.fromString line of NONE => readAndSum infile
+        | SOME n => n + readAndSum infile);

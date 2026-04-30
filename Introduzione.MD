@@ -289,3 +289,6 @@ NON possono esserci:
 1. operazioni aritmetiche
 2. concatenazioni di liste (non so il perchè)
 3. numeri reali (non so il perchè)
+
+## Structure e Signatures
+le structure sono l'implementazione e le signature l'interfaccia che le definisce (tipo file tree.h la signature e tree.c la structure) ()
